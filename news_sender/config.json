@@ -1,0 +1,8 @@
+{
+  "smtp": {
+    "server": "smtp.mailtrap.io",
+    "port": 587,
+    "user": "YOUR_MAILTRAP_USER",
+    "pass": "YOUR_MAILTRAP_PASS"
+  }
+}

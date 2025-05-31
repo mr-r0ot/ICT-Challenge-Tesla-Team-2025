@@ -1,0 +1,25 @@
+{
+  "work_start": "08:30",
+  "work_end": "16:30",
+  "customers": [
+    {
+      "id": 101,
+      "available_from": "09:00",
+      "available_to": "12:00",
+      "visit_duration": 15,
+      "visit_value": 120
+    },
+    {
+      "id": 102,
+      "available_from": "10:30",
+      "available_to": "16:00",
+      "visit_duration": 20,
+      "visit_value": 200
+    }
+  ],
+  "travel_time": [
+    [0,  20, 35],
+    [20, 0,  15],
+    [35, 15, 0]
+  ]
+}

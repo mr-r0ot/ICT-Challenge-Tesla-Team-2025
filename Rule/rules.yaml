@@ -1,0 +1,39 @@
+rules:
+  # مثال ساده: تراکنش بزرگ
+  - id: 1
+    name: "Big Transaction Alert"
+    enabled: true
+    condition: "amount > 50000000"
+    action:
+      type: "email"
+      smtp_server: "smtp.example.com"
+      from: "no-reply@example.com"
+      to: "manager@example.com"
+      message: |
+        تراکنش {{ amount }} تومان توسط {{ user }} در {{ event_time }} ثبت شد.
+
+  # مثال متوسط: تعداد تراکنش‌ها در پنجره زمانی
+  - id: 2
+    name: "High Frequency"
+    enabled: true
+    condition: >
+      # در 10 دقیقه گذشته بیش از 5 تراکنش
+      (asyncpg.fetchval("SELECT count(*) FROM transactions WHERE created_at > NOW() - interval '10 minutes'")) > 5
+    action:
+      type: "api"
+      url: "https://hooks.example.com/alert"
+      payload:
+        text: "بیش از 5 تراکنش در 10 دقیقه گذشته"
+
+  # مثال لاگ: کلمه جریمه در شرح سند
+  - id: 3
+    name: "Penalty Log"
+    enabled: true
+    condition: "'جریمه' in description"
+    action:
+      type: "log"
+      table: "penalty_logs"
+      fields:
+        doc_id: "{{ doc_id }}"
+        description: "{{ description }}"
+        occurred_at: "{{ event_time }}"
